@@ -11,7 +11,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@/hooks/useUser"
 import { FaUserAlt } from "react-icons/fa"
 import { toast } from "react-hot-toast"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import usePlayer from "@/hooks/usePlayer"
 
 interface HeaderProps {
@@ -26,6 +26,14 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
     const supabaseClient = useSupabaseClient()
     const { user } = useUser()
+    const [loggedIn, setLoggedIn] = useState(false)
+
+    useEffect(() => {
+        if (user && !loggedIn) {
+            setLoggedIn(true)
+            toast.success("Login successfully!")
+        }
+    }, [user, loggedIn])
 
     const handleLogout = async () => {
         const { error } = await supabaseClient.auth.signOut()
