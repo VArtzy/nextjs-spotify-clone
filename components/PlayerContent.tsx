@@ -111,7 +111,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                 </div>
             </div>
 
-            <div className="hidden h-full md:dlex justify-center items-center w-full max-w-[722px] gap-x-6">
+            <div className="hidden h-full md:flex justify-center items-center w-full max-w-[722px] gap-x-6">
                 <AiFillStepBackward
                     size={30}
                     onClick={onPlayPrevious}

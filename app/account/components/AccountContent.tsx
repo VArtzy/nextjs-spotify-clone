@@ -26,7 +26,7 @@ const AccountContent = () => {
                 <div className="flex flex-col gap-y-4">
                     <h2>Hoa! there, {user?.email}</h2>
                     <h3 className="text-neutral-400 text-sm font-semibold">
-                        {user?.phone}
+                        {user?.phone ? user?.phone : "No phone provided"}
                     </h3>
                     <h4 className="text-neutral-400 text-sm">
                         {user?.email_confirmed_at
@@ -35,12 +35,12 @@ const AccountContent = () => {
                     </h4>
                     <h4 className="text-neutral-400 text-sm">
                         <b>{user?.id}</b>
-                        <span>Use these ID for subscription!</span>
+                        <span> Use these ID for subscription!</span>
                     </h4>
 
                     {!user?.email_confirmed_at && (
                         <div className="text-neutral-400 text-sm">
-                            You&apos;re not confirmed :(, <b>please do here!</b>
+                            You&apos;re not confirmed :( <b>please do here!</b>
                         </div>
                     )}
                 </div>

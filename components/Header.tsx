@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
         if (user) {
             toast.success("Login successfully!")
         }
-    }, [user])
+    })
 
     const handleLogout = async () => {
         const { error } = await supabaseClient.auth.signOut()
