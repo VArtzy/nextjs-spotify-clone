@@ -70,12 +70,13 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     })
 
     useEffect(() => {
+        sound?.volume(volume)
         sound?.play()
 
         return () => {
             sound?.unload()
         }
-    }, [sound])
+    }, [sound, volume])
 
     const handlePlay = () => {
         if (!isPlaying) {

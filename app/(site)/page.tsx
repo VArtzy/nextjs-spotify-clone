@@ -2,11 +2,22 @@ import getSongs from "@/actions/getSongs"
 import Header from "@/components/Header"
 import ListItem from "@/components/ListItem"
 import PageContent from "./components/PageContent"
+import { useUser } from "@/hooks/useUser"
+import { toast } from "react-hot-toast"
+import { useEffect } from "react"
 
 export const revalidate = 0
 
 export default async function Home() {
     const songs = await getSongs()
+    const { user } = useUser()
+
+    useEffect(() => {
+        if (user) {
+            toast.success("Login successfully!")
+        }
+    }, [user])
+
     return (
         <div className="bg-neutral-900 rounded-lg h-full w-full overflow-hidden overflow-y-auto">
             <Header>
