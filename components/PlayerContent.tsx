@@ -20,6 +20,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const player = usePlayer()
     const [volume, setVolume] = useState(() => {
         const volumeStorage = localStorage.getItem("volume")
+        if (!volumeStorage) localStorage.setItem("volume", "1")
         return volumeStorage ? Number(volumeStorage) : 1
     })
     const [isPlaying, setIsPlaying] = useState(false)
@@ -73,13 +74,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     })
 
     useEffect(() => {
-        sound?.volume(volume)
         sound?.play()
 
         return () => {
             sound?.unload()
         }
-    }, [sound, volume])
+    }, [sound])
 
     const handlePlay = () => {
         if (!isPlaying) {
@@ -143,7 +143,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                     />
                     <Slider
                         value={volume}
-                        onChange={(value) => setVolume(value)}
+                        onChange={(value) => {
+                            localStorage.setItem("volume", String(Number))
+                            setVolume(value)
+                        }}
                     />
                 </div>
             </div>

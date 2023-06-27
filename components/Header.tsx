@@ -26,16 +26,17 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
     const supabaseClient = useSupabaseClient()
     const { user } = useUser()
-    const [loggedIn, setLoggedIn] = useState(false)
+    const login = localStorage.getItem("login")
+    if (!login) localStorage.setItem("login", "logged")
 
     useEffect(() => {
-        if (user && !loggedIn) {
-            setLoggedIn(true)
+        if (user && localStorage.getItem("login")) {
             toast.success("Login successfully!")
         }
-    }, [user, loggedIn])
+    }, [user])
 
     const handleLogout = async () => {
+        localStorage.clear("login")
         const { error } = await supabaseClient.auth.signOut()
         player.reset()
         router.refresh()
