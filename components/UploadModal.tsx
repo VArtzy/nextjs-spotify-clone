@@ -86,8 +86,7 @@ const UploadModal = () => {
                 })
 
             if (supabaseError) {
-                setIsLoading(false)
-                return toast.error("Something went wrong!")
+                return toast.error(supabaseError.message)
             }
 
             router.refresh()
