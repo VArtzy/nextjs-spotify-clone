@@ -20,7 +20,7 @@ const Library: React.FC<LibraryProps> = ({ songs }) => {
 
     const onClick = () => {
         if (!user) {
-            authModal.onOpen()
+            return authModal.onOpen()
         }
 
         // TODO: Check for subscription
