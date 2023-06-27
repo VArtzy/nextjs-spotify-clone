@@ -11,7 +11,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react"
 import { useUser } from "@/hooks/useUser"
 import { FaUserAlt } from "react-icons/fa"
 import { toast } from "react-hot-toast"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import usePlayer from "@/hooks/usePlayer"
 
 interface HeaderProps {
@@ -26,17 +26,8 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
     const supabaseClient = useSupabaseClient()
     const { user } = useUser()
-    const login = localStorage.getItem("login")
-    if (!login) localStorage.setItem("login", "logged")
-
-    useEffect(() => {
-        if (user && localStorage.getItem("login")) {
-            toast.success("Login successfully!")
-        }
-    }, [user])
 
     const handleLogout = async () => {
-        localStorage.clear("login")
         const { error } = await supabaseClient.auth.signOut()
         player.reset()
         router.refresh()
