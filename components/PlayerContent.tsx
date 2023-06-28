@@ -71,7 +71,8 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     })
 
     useEffect(() => {
-        sound?.volume(Number(volume))
+        console.log(volume)
+        sound?.volume(volume)
         sound?.play()
 
         return () => {
