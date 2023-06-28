@@ -12,7 +12,7 @@ import { useUser } from "@/hooks/useUser"
 import { FaUserAlt } from "react-icons/fa"
 import { toast } from "react-hot-toast"
 import usePlayer from "@/hooks/usePlayer"
-import useLocalStorage from "@/hooks/UseStorage"
+import useLocalStorage from "@/hooks/useLocalStorage"
 
 interface HeaderProps {
     children: React.ReactNode
