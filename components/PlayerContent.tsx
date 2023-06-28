@@ -10,6 +10,7 @@ import Slider from "./Slider"
 import usePlayer from "@/hooks/usePlayer"
 import { useEffect, useState } from "react"
 import useSound from "use-sound"
+import useLocalStorage from "@/hooks/useLocalStorage"
 
 interface PlayerContentProps {
     song: Song
@@ -18,7 +19,7 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const player = usePlayer()
-    const [volume, setVolume] = useState(1)
+    const [volume, setVolume] = useLocalStorage("volume", 1)
     const [isPlaying, setIsPlaying] = useState(false)
 
     const Icon = isPlaying ? BsPauseFill : BsPlayFill
@@ -70,14 +71,12 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     })
 
     useEffect(() => {
-        console.log(volume)
-        sound?.volume(volume)
         sound?.play()
 
         return () => {
             sound?.unload()
         }
-    }, [sound, volume])
+    }, [sound])
 
     const handlePlay = () => {
         if (!isPlaying) {
