@@ -13,6 +13,7 @@ import { FaUserAlt } from "react-icons/fa"
 import { toast } from "react-hot-toast"
 import { useEffect } from "react"
 import usePlayer from "@/hooks/usePlayer"
+import useLocalStorage from "@/hooks/UseStorage"
 
 interface HeaderProps {
     children: React.ReactNode
@@ -26,8 +27,17 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
     const supabaseClient = useSupabaseClient()
     const { user } = useUser()
+    const [isLogin, setIsLogin] = useLocalStorage("login", false)
+
+    useEffect(() => {
+        if (user && !isLogin) {
+            setIsLogin(true)
+            toast.success("Login successfully!")
+        }
+    })
 
     const handleLogout = async () => {
+        setIsLogin(false)
         const { error } = await supabaseClient.auth.signOut()
         player.reset()
         router.refresh()
