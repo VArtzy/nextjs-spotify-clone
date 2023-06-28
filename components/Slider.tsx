@@ -1,13 +1,12 @@
-"use client"
-
 import * as RadixSlider from "@radix-ui/react-slider"
+import React from "react"
 
 interface SliderProps {
     value?: number
     onChange?: (value: number) => void
 }
 
-const Slider: React.FC<SliderProps> = ({ value = 1, onChange }) => {
+const Slider: React.FC<SliderProps> = React.memo(({ value = 1, onChange }) => {
     const handleChange = (newValue: number[]) => {
         onChange?.(newValue[0])
     }
@@ -27,6 +26,8 @@ const Slider: React.FC<SliderProps> = ({ value = 1, onChange }) => {
             </RadixSlider.Track>
         </RadixSlider.Root>
     )
-}
+})
+
+Slider.displayName = "Slider"
 
 export default Slider
