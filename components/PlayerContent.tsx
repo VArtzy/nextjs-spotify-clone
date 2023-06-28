@@ -19,7 +19,8 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const player = usePlayer()
-    const [volume, setVolume] = useLocalStorage("volume", 1)
+    const [value, setValue] = useLocalStorage("volume", 1)
+    const [volume, setVolume] = useState(value)
     const [isPlaying, setIsPlaying] = useState(false)
 
     const Icon = isPlaying ? BsPauseFill : BsPlayFill
@@ -90,8 +91,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const toggleMute = () => {
         if (volume === 0) {
             setVolume(1)
+            setValue(1)
         } else {
             setVolume(0)
+            setValue(0)
         }
     }
 
@@ -141,7 +144,10 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                     />
                     <Slider
                         value={volume}
-                        onChange={(value) => setVolume(value)}
+                        onChange={(value) => {
+                            setVolume(value)
+                            setValue(value)
+                        }}
                     />
                 </div>
             </div>
