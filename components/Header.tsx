@@ -26,7 +26,10 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
     const supabaseClient = useSupabaseClient()
     const { user } = useUser()
-    useLocalStorage("login", "")
+    const [isLogin, setIsLogin] = useLocalStorage("login", false)
+
+    setIsLogin(true)
+    console.log(isLogin)
 
     const handleLogout = async () => {
         const { error } = await supabaseClient.auth.signOut()
