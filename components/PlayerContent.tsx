@@ -19,8 +19,7 @@ interface PlayerContentProps {
 
 const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const player = usePlayer()
-    const [value, setValue] = useLocalStorage("volume", 1)
-    const [volume, setVolume] = useState(value)
+    const [volume, setVolume] = useLocalStorage("volume", 1)
     const [isPlaying, setIsPlaying] = useState(false)
 
     const Icon = isPlaying ? BsPauseFill : BsPlayFill
@@ -61,7 +60,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     const [play, { pause, sound }] = useSound(songUrl, {
-        volume: value,
+        volume: volume,
         onplay: () => setIsPlaying(true),
         onend: () => {
             setIsPlaying(false)
@@ -72,7 +71,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     })
 
     useEffect(() => {
-        sound?.volume(volume)
+        sound?.volume(Number(volume))
         sound?.play()
 
         return () => {
@@ -91,10 +90,8 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     const toggleMute = () => {
         if (volume === 0) {
             setVolume(1)
-            setValue(1)
         } else {
             setVolume(0)
-            setValue(0)
         }
     }
 
@@ -144,10 +141,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
                     />
                     <Slider
                         value={volume}
-                        onChange={(value) => {
-                            setVolume(value)
-                            setValue(value)
-                        }}
+                        onChange={(value) => setVolume(value)}
                     />
                 </div>
             </div>
