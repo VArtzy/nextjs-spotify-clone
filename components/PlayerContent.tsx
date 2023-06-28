@@ -61,7 +61,7 @@ const PlayerContent: React.FC<PlayerContentProps> = ({ song, songUrl }) => {
     }
 
     const [play, { pause, sound }] = useSound(songUrl, {
-        volume: volume,
+        volume: value,
         onplay: () => setIsPlaying(true),
         onend: () => {
             setIsPlaying(false)
