@@ -13,6 +13,7 @@ import { FaUserAlt } from "react-icons/fa"
 import { toast } from "react-hot-toast"
 import usePlayer from "@/hooks/usePlayer"
 import useLocalStorage from "@/hooks/useLocalStorage"
+import { useEffect } from "react"
 
 interface HeaderProps {
     children: React.ReactNode
@@ -28,8 +29,10 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
     const { user } = useUser()
     const [isLogin, setIsLogin] = useLocalStorage("login", false)
 
-    setIsLogin(true)
-    console.log(isLogin)
+    useEffect(() => {
+        setIsLogin(true)
+        console.log(isLogin)
+    })
 
     const handleLogout = async () => {
         const { error } = await supabaseClient.auth.signOut()
